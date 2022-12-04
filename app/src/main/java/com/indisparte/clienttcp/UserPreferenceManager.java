@@ -3,6 +3,8 @@ package com.indisparte.clienttcp;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.indisparte.clienttcp.di.component.ClientApplication;
+
 /**
  * Used to load username from the preferences
  *

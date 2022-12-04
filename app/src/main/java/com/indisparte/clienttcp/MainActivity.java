@@ -15,9 +15,15 @@ import com.indisparte.clienttcp.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements PotholeListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
+    @Inject
     private Repository mRepository;
 
 
@@ -26,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements PotholeListener {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        mRepository = new Repository();
         connectToTheServer();
 
         // connect to the server
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements PotholeListener {
             } else {
                 Log.d(TAG, "onCreate: repository is null");
             }
-
             //clear edittext
             binding.username.setText("");
         });
