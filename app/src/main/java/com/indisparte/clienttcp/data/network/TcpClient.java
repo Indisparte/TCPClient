@@ -61,7 +61,7 @@ public class TcpClient {
     }
 
     public String readLine() throws IOException {
-        return readLine(0);
+        return readLine(5);
     }
 
     public String readLine(int timeout) throws IOException {
