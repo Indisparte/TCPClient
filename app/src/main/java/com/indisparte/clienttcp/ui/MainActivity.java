@@ -29,15 +29,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStop() {
-        Log.d(TAG, "onStop: Close server connection");
-        try {
-            mPotholeRepository.closeConnection();
-        } catch (IOException e) {
-            Log.e(TAG, "onStop: Error on closing connection:" + e.getMessage());
-            e.printStackTrace();
-        }
-        super.onStop();
-    }
+
 }

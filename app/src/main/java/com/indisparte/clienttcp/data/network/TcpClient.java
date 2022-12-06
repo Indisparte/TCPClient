@@ -48,7 +48,6 @@ public class TcpClient {
         return instance;
     }
 
-    //TODO should be open to every request?
     public void openConnection() throws IOException {
         mSocket = new Socket(HOST_NAME, HOST_PORT);
         mSocket.setSoTimeout(SO_TIMEOUT);
@@ -75,7 +74,7 @@ public class TcpClient {
             final String complete_msg = command.getFormattedRequest();
             mStream.write((complete_msg + "\n").getBytes());
             mStream.flush();
-            Log.d(TAG, "write: Sending: " + complete_msg);
+            Log.d(TAG, "write: " + complete_msg);
         }
     }
 
@@ -87,7 +86,7 @@ public class TcpClient {
         synchronized (mReader) {
             int prevTimeout = mSocket.getSoTimeout();
             try {
-                Log.d(TAG, "readLine: Start readLine");
+                Log.d(TAG, "Start readLine");
                 mSocket.setSoTimeout(timeout);
                 final String msg = mReader.readLine();
                 if (msg != null) {
@@ -147,15 +146,15 @@ public class TcpClient {
         return list;
     }
 
-    public List<Pothole> getAllPotholesByRange(@NonNull Double range,@NonNull Double latitude,@NonNull Double longitude) throws IOException {
+    public List<Pothole> getAllPotholesByRange(@NonNull Double range, @NonNull Double latitude, @NonNull Double longitude) throws IOException {
         String result;
         List<Pothole> resultList = new ArrayList<>();
 
         write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST_BY_RANGE,
-                preferenceManager.getUserName(),
-                String.valueOf(latitude),
-                String.valueOf(longitude),
-                String.valueOf(range)
+                        preferenceManager.getUserName(),
+                        String.valueOf(latitude),
+                        String.valueOf(longitude),
+                        String.valueOf(range)
                 )
         );
 
@@ -172,7 +171,7 @@ public class TcpClient {
         double threshold = DEFAULT_THRESHOLD;
         write(new ServerCommand(ServerCommand.CommandType.THRESHOLD));
 
-        if (mReader.ready()) {
+        while (mReader.ready()) {
             threshold = Double.parseDouble(readLine());
         }
 
@@ -187,15 +186,17 @@ public class TcpClient {
                 String.valueOf(pothole.getVariation()))
         );
 
-        if (mReader.ready()) {
-            readLine();
+        while (mReader.ready()) {
+            String response = readLine();
+            Log.d(TAG, "addPothole: response: " + response);
         }
     }
 
     public void setUsername(@NonNull String username) throws IOException {
         write(new ServerCommand(CommandType.SET_USERNAME, username));
-        if (mReader.ready()) {
-            readLine();
+        while (mReader.ready()) {
+            String response = readLine();
+            Log.d(TAG, "setUsername: response, " + response);
         }
     }
 

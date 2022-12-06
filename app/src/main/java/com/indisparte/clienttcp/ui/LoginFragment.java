@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.indisparte.clienttcp.R;
 import com.indisparte.clienttcp.UserPreferenceManager;
 import com.indisparte.clienttcp.data.network.PotholeRepository;
 import com.indisparte.clienttcp.databinding.FragmentLoginBinding;
@@ -91,6 +92,7 @@ public class LoginFragment extends Fragment {
                 //clear edittext
                 binding.username.setText("");
                 Log.d(TAG, "login: username send successfully");
+                navigateHome();
 
             });
 
@@ -98,6 +100,10 @@ public class LoginFragment extends Fragment {
             Log.d(TAG, "login: repository is null");
         }
 
+    }
+
+    private void navigateHome() {
+        requireActivity().runOnUiThread(() -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_homeFragment));
     }
 
     private void connection_server_error_dialog() {
@@ -120,6 +126,7 @@ public class LoginFragment extends Fragment {
                     mPotholeRepository = null;
                     requireActivity().runOnUiThread(this::connection_server_error_dialog);
                 }
+                Log.d(TAG, "connectToTheServer: Connected to server");
             });
             checkIfUserAlreadyHaveUsername();
 
