@@ -1,6 +1,6 @@
 package com.indisparte.clienttcp.di.module;
 
-import com.indisparte.clienttcp.data.network.Repository;
+import com.indisparte.clienttcp.data.network.PotholeRepository;
 
 import javax.inject.Singleton;
 
@@ -17,7 +17,7 @@ import dagger.hilt.components.SingletonComponent;
 public class RepositoryModule {
     @Singleton
     @Provides
-    public Repository provideRepository() {
-        return new Repository();
+    public PotholeRepository provideRepository() {
+        return PotholeRepository.getInstance();
     }
 }
