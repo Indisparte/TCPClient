@@ -11,25 +11,33 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/threshold"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="Get Threashold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/holelist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_below="@id/threshold"
+            android:layout_centerInParent="true"
             android:text="Get Hole list" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addNewHole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/holelist"
+            android:layout_centerInParent="true"
+            android:text="New Hole" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/exit"
             android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_height="wrap_content"
-            android:layout_below="@id/holelist"
+            android:layout_below="@id/addNewHole"
+            android:layout_centerInParent="true"
             android:text="Exit" />
 
 

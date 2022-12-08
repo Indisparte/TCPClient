@@ -58,7 +58,7 @@ public  class ServerCommand {
                 if (query.length == 1) {
                     result += "[" + query[0] + "]";
                 } else {
-                    result = "[" + String.join(";", query) + "]";
+                    result += "[" + String.join(";", query) + "]";
                 }
             }
         }

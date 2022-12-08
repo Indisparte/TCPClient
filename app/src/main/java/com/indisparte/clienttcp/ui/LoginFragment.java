@@ -19,9 +19,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.indisparte.clienttcp.R;
 import com.indisparte.clienttcp.UserPreferenceManager;
+import com.indisparte.clienttcp.data.network.Common;
 import com.indisparte.clienttcp.data.network.PotholeRepository;
 import com.indisparte.clienttcp.databinding.FragmentLoginBinding;
 
@@ -56,6 +58,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.send.setActivated(false);
+        binding.send.setClickable(false);
+        binding.username.setClickable(false);
+        binding.username.setActivated(false);
         connectToTheServer();
 
         // login into the server
@@ -108,30 +114,39 @@ public class LoginFragment extends Fragment {
 
     private void connection_server_error_dialog() {
         requireActivity().runOnUiThread(() -> {
-            // TODO: 04/12/2022 Add error dialog
             Log.e(TAG, "connection_server_error_dialog: No connection with server");
+            Toast.makeText(requireContext(), "No connection with the server", Toast.LENGTH_LONG).show();
         });
     }
 
     private void connectToTheServer() {
-//        if (Common.isConnectedToInternet(getContext())) { TODO check internet
-        if (mPotholeRepository == null || !mPotholeRepository.isConnect()) {
-            AsyncTask.execute(() -> {
-                try {
-                    Log.d(TAG, "connectToTheServer: Try to connect to the server");
-                    mPotholeRepository.connect();
-                } catch (IOException e) {
-                    Log.e(TAG, "connectToTheServer: Error in server connection:" + e.getMessage());
-                    e.printStackTrace();
-                    mPotholeRepository = null;
-                    requireActivity().runOnUiThread(this::connection_server_error_dialog);
-                }
-                Log.d(TAG, "connectToTheServer: Connected to server");
-            });
-            checkIfUserAlreadyHaveUsername();
+        if (Common.isConnectedToInternet(requireContext())) {
+            if (mPotholeRepository == null || !mPotholeRepository.isConnect()) {
+                AsyncTask.execute(() -> {
+                    try {
+                        Log.d(TAG, "connectToTheServer: Try to connect to the server");
+                        mPotholeRepository.connect();
+                        Log.d(TAG, "connectToTheServer: Connected to server");
+                        requireActivity().runOnUiThread(this::hideConnectingStatus);
+                        checkIfUserAlreadyHaveUsername();
+                    } catch (IOException e) {
+                        Log.e(TAG, "connectToTheServer: Error in server connection:" + e.getMessage());
+                        e.printStackTrace();
+                        mPotholeRepository = null;
+                        requireActivity().runOnUiThread(this::connection_server_error_dialog);
+                    }
 
-//            }
+                });
+            }
         }
+    }
+
+    private void hideConnectingStatus() {
+        binding.connectionStatus.setVisibility(View.GONE);
+        binding.send.setActivated(true);
+        binding.username.setActivated(true);
+        binding.send.setClickable(true);
+        binding.username.setClickable(true);
     }
 
     private void checkIfUserAlreadyHaveUsername() {

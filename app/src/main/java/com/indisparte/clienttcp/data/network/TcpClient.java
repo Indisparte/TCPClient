@@ -91,14 +91,14 @@ public class TcpClient {
                 final String msg = mReader.readLine();
                 if (msg != null) {
                     mSocket.setSoTimeout(prevTimeout);
-                    Log.d(TAG, "readLine: Received: " + msg);
+                    Log.d(TAG, "Received: " + msg);
                     return msg;
                 }
 
             } catch (SocketTimeoutException e) {
-                Log.e(TAG, "readLine Timeout: " + e.getMessage());
+                Log.e(TAG, "ReadLine Timeout: " + e.getMessage());
                 mSocket.setSoTimeout(prevTimeout);
-                throw e;
+//                throw e;
             }
         }
         return null;
@@ -109,10 +109,10 @@ public class TcpClient {
         List<Pothole> resultList = new ArrayList<>();
 
         write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST));
-        while (mReader.ready()) {
-            result = readLine();
+        while ((result = readLine(5000)) != null) {
             String[] tokens = result.split(";");
             resultList.add(0, new Pothole(tokens[0], Double.valueOf(tokens[1]), Double.valueOf(tokens[2]), Double.valueOf(tokens[3])));
+
         }
         return resultList;
     }
@@ -150,7 +150,7 @@ public class TcpClient {
         String result;
         List<Pothole> resultList = new ArrayList<>();
 
-        write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST_BY_RANGE,
+        write(new ServerCommand(CommandType.HOLE_LIST_BY_RANGE,
                         preferenceManager.getUserName(),
                         String.valueOf(latitude),
                         String.valueOf(longitude),
@@ -158,8 +158,7 @@ public class TcpClient {
                 )
         );
 
-        while (mReader.ready()) {
-            result = readLine();
+        while ((result = readLine(5000)) != null) {
             String[] tokens = result.split(";");
             resultList.add(0, new Pothole(tokens[0], Double.valueOf(tokens[1]), Double.valueOf(tokens[2]), Double.valueOf(tokens[3])));
         }
@@ -169,33 +168,35 @@ public class TcpClient {
 
     public Double getThreshold() throws IOException {
         double threshold = DEFAULT_THRESHOLD;
-        write(new ServerCommand(ServerCommand.CommandType.THRESHOLD));
+        String result;
+        write(new ServerCommand(CommandType.THRESHOLD));
 
-        while (mReader.ready()) {
-            threshold = Double.parseDouble(readLine());
+        while ((result = readLine(5000)) != null) {
+            threshold = Double.parseDouble(result);
         }
 
         return threshold;
     }
 
     public void addPothole(@NonNull Pothole pothole) throws IOException {
-        write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST_BY_RANGE,
+        String response;
+        write(new ServerCommand(CommandType.NEW_HOLE,
                 pothole.getUsername(),
                 String.valueOf(pothole.getLatitude()),
                 String.valueOf(pothole.getLongitude()),
                 String.valueOf(pothole.getVariation()))
         );
 
-        while (mReader.ready()) {
-            String response = readLine();
+        while ((response = readLine(5000)) != null) {
             Log.d(TAG, "addPothole: response: " + response);
         }
     }
 
     public void setUsername(@NonNull String username) throws IOException {
+        String response;
+
         write(new ServerCommand(CommandType.SET_USERNAME, username));
-        while (mReader.ready()) {
-            String response = readLine();
+        while ((response = readLine(5000)) != null) {
             Log.d(TAG, "setUsername: response, " + response);
         }
     }

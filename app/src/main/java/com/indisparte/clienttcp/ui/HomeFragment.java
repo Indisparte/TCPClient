@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.indisparte.clienttcp.R;
+import com.indisparte.clienttcp.data.model.Pothole;
 import com.indisparte.clienttcp.data.network.PotholeRepository;
 import com.indisparte.clienttcp.databinding.FragmentHomeBinding;
 
@@ -54,13 +55,12 @@ public class HomeFragment extends Fragment {
                 AsyncTask.execute(() -> {
                     try {
                         mPotholeRepository.getThreshold();
+                        Log.d(TAG, "Success, received threshold");
                     } catch (IOException e) {
-                        Log.e(TAG, "onClick: Getting threashold error, " + e.getMessage());
+                        Log.e(TAG, "onClick: Getting threshold error, " + e.getMessage());
                     }
 
                 });
-
-                Log.d(TAG, "onClick: Successfully get threshold");
             }
         });
         mBinding.holelist.setOnClickListener(new OnClickListener() {
@@ -70,11 +70,11 @@ public class HomeFragment extends Fragment {
                 AsyncTask.execute(() -> {
                     try {
                         mPotholeRepository.getAllPotholes();
+                        Log.d(TAG, "Success, received all potholes");
                     } catch (IOException e) {
                         Log.e(TAG, "onClick: Error getting all potholes, " + e.getMessage());
                     }
                 });
-                Log.d(TAG, "onClick: Successfully get all potholes");
             }
         });
         mBinding.exit.setOnClickListener(new OnClickListener() {
@@ -84,12 +84,26 @@ public class HomeFragment extends Fragment {
                 AsyncTask.execute(() -> {
                     try {
                         mPotholeRepository.closeConnection();
+                        Log.d(TAG, "Success, connection closed");
                     } catch (IOException e) {
                         Log.e(TAG, "onClick: Error closing connection, " + e.getMessage());
                     }
                 });
+            }
+        });
 
-                Log.d(TAG, "onClick: Connection closed successfully");
+        mBinding.addNewHole.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //adding new hole
+                AsyncTask.execute(() -> {
+                    try {
+                        mPotholeRepository.addPothole(new Pothole("",0.0,0.0,0.0));
+                        Log.d(TAG, "Success, new pothole added");
+                    } catch (IOException e) {
+                        Log.e(TAG, "onClick: Error adding new pothole, " + e.getMessage());
+                    }
+                });
             }
         });
     }
