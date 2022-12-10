@@ -48,8 +48,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mBinding.threshold.setOnClickListener(threshold_btn -> {
-            //get threshold
+            // get threshold
             AsyncTask.execute(() -> {
                 try {
                     mPotholeRepository.getThreshold();
@@ -84,17 +85,24 @@ public class HomeFragment extends Fragment {
         });
 
         mBinding.addNewHole.setOnClickListener(addNewHole_btn -> {
+            final Pothole newPothole = buildAPothole();
             //adding new hole
             AsyncTask.execute(() -> {
                 try {
-                    //generic pothole
-                    mPotholeRepository.addPothole(new Pothole(0.0,0.0,0.0));
+                    mPotholeRepository.addPothole(newPothole);
                     Log.d(TAG, "Success, new pothole added");
                 } catch (IOException e) {
                     Log.e(TAG, "onClick: Error adding new pothole, " + e.getMessage());
                 }
             });
         });
+    }
+
+    private Pothole buildAPothole() {
+        double latitude = Double.parseDouble(mBinding.latitude.getText().toString().trim());
+        double longitude = Double.parseDouble(mBinding.longitude.getText().toString().trim());
+        double variation = Double.parseDouble(mBinding.variation.getText().toString().trim());
+        return new Pothole(latitude,longitude,variation);
     }
 
     @Override
