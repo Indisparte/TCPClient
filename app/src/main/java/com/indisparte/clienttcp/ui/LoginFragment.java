@@ -2,6 +2,8 @@ package com.indisparte.clienttcp.ui;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.indisparte.clienttcp.UserPreferenceManager;
 import com.indisparte.clienttcp.data.network.Common;
 import com.indisparte.clienttcp.data.network.PotholeRepository;
 import com.indisparte.clienttcp.databinding.FragmentLoginBinding;
+import com.indisparte.clienttcp.util.DialogFactory;
 
 import java.io.IOException;
 
@@ -58,10 +61,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.send.setActivated(false);
-        binding.send.setClickable(false);
-        binding.username.setClickable(false);
-        binding.username.setActivated(false);
         connectToTheServer();
 
         // login into the server
@@ -75,13 +74,16 @@ public class LoginFragment extends Fragment {
     }
 
     private void putUsernameInPreferences(String username) {
+        Log.d(TAG, "putUsernameInPreferences");
         SharedPreferences settings = requireActivity().getSharedPreferences(
                 UserPreferenceManager.USERNAME_PREF_KEY,
                 MODE_PRIVATE
         );
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString(username, null);
+        editor.putString(null, username);
         editor.apply();
+
+        Log.d(TAG, "putUsernameInPreferences: " + settings.getString(UserPreferenceManager.USERNAME_PREF_KEY, null));
     }
 
     private void login(String username) {
@@ -115,7 +117,13 @@ public class LoginFragment extends Fragment {
     private void connection_server_error_dialog() {
         requireActivity().runOnUiThread(() -> {
             Log.e(TAG, "connection_server_error_dialog: No connection with server");
-            Toast.makeText(requireContext(), "No connection with the server", Toast.LENGTH_LONG).show();
+            DialogFactory.createSimpleOkCancelDialog(
+                    "No connection with the server",
+                    "Retry",
+                    "Close",
+                    (dialogInterface, i) -> connectToTheServer(),
+                    (dialogInterface, i) -> requireActivity().finish()
+            );
         });
     }
 
@@ -143,10 +151,6 @@ public class LoginFragment extends Fragment {
 
     private void hideConnectingStatus() {
         binding.connectionStatus.setVisibility(View.GONE);
-        binding.send.setActivated(true);
-        binding.username.setActivated(true);
-        binding.send.setClickable(true);
-        binding.username.setClickable(true);
     }
 
     private void checkIfUserAlreadyHaveUsername() {
@@ -158,8 +162,6 @@ public class LoginFragment extends Fragment {
             login(username);
         }
         Log.d(TAG, "checkIfUserAlreadyHaveUsername: User don't have a username set");
-        binding.send.setClickable(true);
-
     }
 
     @Override

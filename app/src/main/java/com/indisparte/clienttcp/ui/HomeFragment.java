@@ -48,63 +48,52 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.threshold.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //get threshold
-                AsyncTask.execute(() -> {
-                    try {
-                        mPotholeRepository.getThreshold();
-                        Log.d(TAG, "Success, received threshold");
-                    } catch (IOException e) {
-                        Log.e(TAG, "onClick: Getting threshold error, " + e.getMessage());
-                    }
+        mBinding.threshold.setOnClickListener(threshold_btn -> {
+            //get threshold
+            AsyncTask.execute(() -> {
+                try {
+                    mPotholeRepository.getThreshold();
+                    Log.d(TAG, "Success, received threshold");
+                } catch (IOException e) {
+                    Log.e(TAG, "onClick: Getting threshold error, " + e.getMessage());
+                }
 
-                });
-            }
+            });
         });
-        mBinding.holelist.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //get hole list
-                AsyncTask.execute(() -> {
-                    try {
-                        mPotholeRepository.getAllPotholes();
-                        Log.d(TAG, "Success, received all potholes");
-                    } catch (IOException e) {
-                        Log.e(TAG, "onClick: Error getting all potholes, " + e.getMessage());
-                    }
-                });
-            }
+        mBinding.holelist.setOnClickListener(holeList_btn -> {
+            //get hole list
+            AsyncTask.execute(() -> {
+                try {
+                    mPotholeRepository.getAllPotholes();
+                    Log.d(TAG, "Success, received all potholes");
+                } catch (IOException e) {
+                    Log.e(TAG, "onClick: Error getting all potholes, " + e.getMessage());
+                }
+            });
         });
-        mBinding.exit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //exit
-                AsyncTask.execute(() -> {
-                    try {
-                        mPotholeRepository.closeConnection();
-                        Log.d(TAG, "Success, connection closed");
-                    } catch (IOException e) {
-                        Log.e(TAG, "onClick: Error closing connection, " + e.getMessage());
-                    }
-                });
-            }
+        mBinding.exit.setOnClickListener(exit_btn -> {
+            //exit
+            AsyncTask.execute(() -> {
+                try {
+                    mPotholeRepository.closeConnection();
+                    Log.d(TAG, "Success, connection closed");
+                } catch (IOException e) {
+                    Log.e(TAG, "onClick: Error closing connection, " + e.getMessage());
+                }
+            });
         });
 
-        mBinding.addNewHole.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //adding new hole
-                AsyncTask.execute(() -> {
-                    try {
-                        mPotholeRepository.addPothole(new Pothole("",0.0,0.0,0.0));
-                        Log.d(TAG, "Success, new pothole added");
-                    } catch (IOException e) {
-                        Log.e(TAG, "onClick: Error adding new pothole, " + e.getMessage());
-                    }
-                });
-            }
+        mBinding.addNewHole.setOnClickListener(addNewHole_btn -> {
+            //adding new hole
+            AsyncTask.execute(() -> {
+                try {
+                    //generic pothole
+                    mPotholeRepository.addPothole(new Pothole(0.0,0.0,0.0));
+                    Log.d(TAG, "Success, new pothole added");
+                } catch (IOException e) {
+                    Log.e(TAG, "onClick: Error adding new pothole, " + e.getMessage());
+                }
+            });
         });
     }
 

@@ -98,7 +98,6 @@ public class TcpClient {
             } catch (SocketTimeoutException e) {
                 Log.e(TAG, "ReadLine Timeout: " + e.getMessage());
                 mSocket.setSoTimeout(prevTimeout);
-//                throw e;
             }
         }
         return null;
@@ -109,9 +108,9 @@ public class TcpClient {
         List<Pothole> resultList = new ArrayList<>();
 
         write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST));
-        while ((result = readLine(5000)) != null) {
+        while ((result = readLine(SO_TIMEOUT)) != null) {
             String[] tokens = result.split(";");
-            resultList.add(0, new Pothole(tokens[0], Double.valueOf(tokens[1]), Double.valueOf(tokens[2]), Double.valueOf(tokens[3])));
+            resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
 
         }
         return resultList;
@@ -158,9 +157,9 @@ public class TcpClient {
                 )
         );
 
-        while ((result = readLine(5000)) != null) {
+        while ((result = readLine(SO_TIMEOUT)) != null) {
             String[] tokens = result.split(";");
-            resultList.add(0, new Pothole(tokens[0], Double.valueOf(tokens[1]), Double.valueOf(tokens[2]), Double.valueOf(tokens[3])));
+            resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
         }
 
         return resultList;
@@ -171,7 +170,7 @@ public class TcpClient {
         String result;
         write(new ServerCommand(CommandType.THRESHOLD));
 
-        while ((result = readLine(5000)) != null) {
+        if ((result = readLine(SO_TIMEOUT)) != null) {
             threshold = Double.parseDouble(result);
         }
 
@@ -179,26 +178,15 @@ public class TcpClient {
     }
 
     public void addPothole(@NonNull Pothole pothole) throws IOException {
-        String response;
         write(new ServerCommand(CommandType.NEW_HOLE,
-                pothole.getUsername(),
                 String.valueOf(pothole.getLatitude()),
                 String.valueOf(pothole.getLongitude()),
                 String.valueOf(pothole.getVariation()))
         );
-
-        while ((response = readLine(5000)) != null) {
-            Log.d(TAG, "addPothole: response: " + response);
-        }
     }
 
     public void setUsername(@NonNull String username) throws IOException {
-        String response;
-
         write(new ServerCommand(CommandType.SET_USERNAME, username));
-        while ((response = readLine(5000)) != null) {
-            Log.d(TAG, "setUsername: response, " + response);
-        }
     }
 
     private String stringInside(String s, String left, String right) {
