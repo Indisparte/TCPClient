@@ -158,7 +158,7 @@ public class TcpClient {
 
         if ((result = readLine(SO_TIMEOUT)) != null) {
             Log.d(TAG, "getAllPotholesByRange: "+result);
-            // TODO: 14/12/2022 Convertire la stringa json in un array di potholes 
+            // TODO: 14/12/2022 Convertire la stringa json in un array di potholes
             //String[] tokens = result.split(";");
             //resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
         }
