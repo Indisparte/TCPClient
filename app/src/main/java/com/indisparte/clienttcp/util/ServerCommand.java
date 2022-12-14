@@ -16,6 +16,7 @@ public  class ServerCommand {
         HOLE_LIST("l"),
         HOLE_LIST_BY_RANGE("r"),//usage: r [lat;lng;range]
         THRESHOLD("t"),
+        DELETE_HOLE("d"),//usage: d[lat;lng]
         EXIT("e");
 
         public final String value;

@@ -145,21 +145,22 @@ public class TcpClient {
         return list;
     }
 
-    public List<Pothole> getAllPotholesByRange(@NonNull Double range, @NonNull Double latitude, @NonNull Double longitude) throws IOException {
-        String result;
+    public List<Pothole> getAllPotholesByRange(int range, double latitude, double longitude) throws IOException {
+        String result ;
         List<Pothole> resultList = new ArrayList<>();
 
         write(new ServerCommand(CommandType.HOLE_LIST_BY_RANGE,
-                        preferenceManager.getUserName(),
                         String.valueOf(latitude),
                         String.valueOf(longitude),
                         String.valueOf(range)
                 )
         );
 
-        while ((result = readLine(SO_TIMEOUT)) != null) {
-            String[] tokens = result.split(";");
-            resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
+        if ((result = readLine(SO_TIMEOUT)) != null) {
+            Log.d(TAG, "getAllPotholesByRange: "+result);
+            // TODO: 14/12/2022 Convertire la stringa json in un array di potholes 
+            //String[] tokens = result.split(";");
+            //resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
         }
 
         return resultList;

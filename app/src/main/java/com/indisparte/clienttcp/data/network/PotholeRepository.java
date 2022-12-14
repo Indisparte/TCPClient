@@ -37,7 +37,7 @@ public class PotholeRepository {
         mClient.setUsername(username);
     }
 
-    public List<Pothole> getPotholesByRange(@NonNull Double range, @NonNull Double latitude, @NonNull Double longitude) throws IOException {
+    public List<Pothole> getPotholesByRange(int range, double latitude, double longitude) throws IOException {
         return mClient.getAllPotholesByRange(range, latitude, longitude);
     }
 

@@ -96,13 +96,26 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
+
+        mBinding.getHolesByRadius.setOnClickListener(getHolesByRadius_btn -> {
+            int radius = mBinding.radius.getProgress();
+            //getting holes by radius
+            AsyncTask.execute(() -> {
+                try {
+                    mPotholeRepository.getPotholesByRange(radius,55.0,11.0);
+                    Log.d(TAG, "Success, get all potholes by range");
+                } catch (IOException e) {
+                    Log.e(TAG, "onClick: Error getting by range, " + e.getMessage());
+                }
+            });
+        });
     }
 
     private Pothole buildAPothole() {
         double latitude = Double.parseDouble(mBinding.latitude.getText().toString().trim());
         double longitude = Double.parseDouble(mBinding.longitude.getText().toString().trim());
         double variation = Double.parseDouble(mBinding.variation.getText().toString().trim());
-        return new Pothole(latitude,longitude,variation);
+        return new Pothole(latitude, longitude, variation);
     }
 
     @Override

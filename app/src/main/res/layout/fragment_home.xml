@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <!-- Variables here -->
@@ -51,6 +52,23 @@
                 android:maxLength="2"
                 android:maxLines="1" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <SeekBar
+            android:id="@+id/radius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addNewHole"
+            android:layout_margin="20dp"
+            android:max="1000" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/get_holes_by_radius"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/radius"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:text="Holes by radus"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/threshold"
