@@ -2,8 +2,6 @@ package com.indisparte.clienttcp.ui;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,20 +9,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.indisparte.clienttcp.R;
-import com.indisparte.clienttcp.UserPreferenceManager;
+import com.indisparte.clienttcp.util.UserPreferenceManager;
 import com.indisparte.clienttcp.data.network.Common;
 import com.indisparte.clienttcp.data.network.PotholeRepository;
 import com.indisparte.clienttcp.databinding.FragmentLoginBinding;
@@ -75,19 +69,12 @@ public class LoginFragment extends Fragment {
 
     private void putUsernameInPreferences(String username) {
         Log.d(TAG, "putUsernameInPreferences");
-        SharedPreferences settings = requireActivity().getSharedPreferences(
-                UserPreferenceManager.USERNAME_PREF_KEY,
-                MODE_PRIVATE
-        );
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(null, username);
-        editor.apply();
-
-        Log.d(TAG, "putUsernameInPreferences: " + settings.getString(UserPreferenceManager.USERNAME_PREF_KEY, null));
+        UserPreferenceManager.saveUsername(username);
+        Log.d(TAG, "putUsernameInPreferences: " + UserPreferenceManager.getUserName());
     }
 
     private void login(String username) {
-        if (mPotholeRepository != null) {
+        if (mPotholeRepository != null && username!=null) {
             AsyncTask.execute(() -> {
                 try {
                     Log.d(TAG, "login: Try to login");
@@ -105,7 +92,7 @@ public class LoginFragment extends Fragment {
             });
 
         } else {
-            Log.d(TAG, "login: repository is null");
+            Log.d(TAG, "login: repository or username is null");
         }
 
     }
@@ -154,7 +141,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void checkIfUserAlreadyHaveUsername() {
-        final String username = UserPreferenceManager.getInstance().getUserName();
+        final String username = UserPreferenceManager.getUserName();
         // check if we have the username saved in the preferences, if not, user need to insert one
         if (username != null) {
             Log.d(TAG, "checkIfUserAlreadyHaveUsername: User already have an username, so login");

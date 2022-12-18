@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.indisparte.clienttcp.BuildConfig;
-import com.indisparte.clienttcp.UserPreferenceManager;
+import com.indisparte.clienttcp.util.UserPreferenceManager;
 import com.indisparte.clienttcp.data.model.Pothole;
 import com.indisparte.clienttcp.util.ServerCommand;
 import com.indisparte.clienttcp.util.ServerCommand.CommandType;
