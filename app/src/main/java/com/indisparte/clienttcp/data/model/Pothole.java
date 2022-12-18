@@ -7,31 +7,31 @@ import androidx.annotation.NonNull;
  */
 public class Pothole {
     private final String user;
-    private final Double latitude, longitude,variation;
+    private final Double lat, lon, var;
 
     public Pothole(@NonNull String user,
-                   @NonNull Double latitude,
-                   @NonNull Double longitude,
-                   @NonNull Double variation
+                   @NonNull Double lat,
+                   @NonNull Double lon,
+                   @NonNull Double var
     ) {
         this.user = user;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.variation = variation;
+        this.lat = lat;
+        this.lon = lon;
+        this.var = var;
     }
 
 
 
-    public Double getLatitude() {
-        return latitude;
+    public Double getLat() {
+        return lat;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getLon() {
+        return lon;
     }
 
-    public Double getVariation() {
-        return variation;
+    public Double getVar() {
+        return var;
     }
 
     public String getUser() {
@@ -43,9 +43,9 @@ public class Pothole {
     public String toString() {
         return "Pothole{" +
                 "user='" + user + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", variation=" + variation +
+                ", latitude=" + lat +
+                ", longitude=" + lon +
+                ", variation=" + var +
                 '}';
     }
 }

@@ -3,9 +3,8 @@ package com.indisparte.clienttcp.data.network;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
 import com.indisparte.clienttcp.BuildConfig;
 import com.indisparte.clienttcp.UserPreferenceManager;
 import com.indisparte.clienttcp.data.model.Pothole;
@@ -23,9 +22,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -129,18 +126,13 @@ public class TcpClient {
                 JSONArray jsonArray = jsonObject.getJSONArray("potholes");
                 //Iterating JSON array
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    //get each value in string format: lat;lng;var
-                    String jsonArrayElem = jsonArray.getString(i);
-                    Log.d(TAG, "getAllPotholesByRange, jsonArrayElem: "+jsonArrayElem);
-                    String[] tokens = jsonArrayElem.split(",");
-                    //build new pothole
-                   /* Pothole newPothole = new Pothole(
-                            tokens[0],                 //user
-                            Double.valueOf(tokens[1]), //latitude
-                            Double.valueOf(tokens[2]), //longitude
-                            Double.valueOf(tokens[3])); //variation
+                    //get each value in string format: user,lat,lng,var
+                    String jsonElem = jsonArray.getString(i);
+                    Log.d(TAG, "getAllPotholesByRange, jsonElem: "+jsonElem);
+                    Pothole newPothole = new Gson().fromJson(String.valueOf(jsonElem), Pothole.class);
+                    Log.d(TAG, "getAllPotholesByRange, new pothole: "+newPothole);
                     potholes.add(newPothole);
-                    Log.d(TAG, "getAllPotholesByRange, new pothole added: "+newPothole);*/
+
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "getAllPotholesByRange: " + e.getMessage());
@@ -164,9 +156,9 @@ public class TcpClient {
 
     public void addPothole(@NonNull Pothole pothole) throws IOException {
         write(new ServerCommand(CommandType.NEW_HOLE,
-                String.valueOf(pothole.getLatitude()),
-                String.valueOf(pothole.getLongitude()),
-                String.valueOf(pothole.getVariation()))
+                String.valueOf(pothole.getLat()),
+                String.valueOf(pothole.getLon()),
+                String.valueOf(pothole.getVar()))
         );
     }
 
