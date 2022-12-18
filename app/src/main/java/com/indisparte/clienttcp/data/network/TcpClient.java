@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -129,12 +130,17 @@ public class TcpClient {
                 //Iterating JSON array
                 for (int i = 0; i < jsonArray.length(); i++) {
                     //get each value in string format: lat;lng;var
-                    String[] tokens = jsonArray.getString(i).split(";");
-                    potholes.add(new Pothole(
-                            Double.valueOf(tokens[0]), //latitude
-                            Double.valueOf(tokens[1]), //longitude
-                            Double.valueOf(tokens[2])) //variation
-                    );
+                    String jsonArrayElem = jsonArray.getString(i);
+                    Log.d(TAG, "getAllPotholesByRange, jsonArrayElem: "+jsonArrayElem);
+                    String[] tokens = jsonArrayElem.split(",");
+                    //build new pothole
+                   /* Pothole newPothole = new Pothole(
+                            tokens[0],                 //user
+                            Double.valueOf(tokens[1]), //latitude
+                            Double.valueOf(tokens[2]), //longitude
+                            Double.valueOf(tokens[3])); //variation
+                    potholes.add(newPothole);
+                    Log.d(TAG, "getAllPotholesByRange, new pothole added: "+newPothole);*/
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "getAllPotholesByRange: " + e.getMessage());

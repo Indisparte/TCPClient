@@ -6,16 +6,20 @@ import androidx.annotation.NonNull;
  * @author Antonio Di Nuzzo (Indisparte)
  */
 public class Pothole {
+    private final String user;
     private final Double latitude, longitude,variation;
 
-    public Pothole(@NonNull Double latitude,
+    public Pothole(@NonNull String user,
+                   @NonNull Double latitude,
                    @NonNull Double longitude,
                    @NonNull Double variation
     ) {
+        this.user = user;
         this.latitude = latitude;
         this.longitude = longitude;
         this.variation = variation;
     }
+
 
 
     public Double getLatitude() {
@@ -30,10 +34,15 @@ public class Pothole {
         return variation;
     }
 
+    public String getUser() {
+        return user;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return "Pothole{" +
+                "user='" + user + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", variation=" + variation +
