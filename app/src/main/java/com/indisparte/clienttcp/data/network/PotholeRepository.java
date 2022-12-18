@@ -41,10 +41,6 @@ public class PotholeRepository {
         return mClient.getAllPotholesByRange(range, latitude, longitude);
     }
 
-    public List<Pothole> getAllPotholes() throws IOException {
-        return mClient.getAllPotholes();
-    }
-
     public Double getThreshold() throws IOException {
         return mClient.getThreshold();
     }

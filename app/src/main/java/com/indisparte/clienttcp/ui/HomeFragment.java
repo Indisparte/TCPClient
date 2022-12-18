@@ -61,17 +61,7 @@ public class HomeFragment extends Fragment {
 
             });
         });
-        mBinding.holelist.setOnClickListener(holeList_btn -> {
-            //get hole list
-            AsyncTask.execute(() -> {
-                try {
-                    mPotholeRepository.getAllPotholes();
-                    Log.d(TAG, "Success, received all potholes");
-                } catch (IOException e) {
-                    Log.e(TAG, "onClick: Error getting all potholes, " + e.getMessage());
-                }
-            });
-        });
+
         mBinding.exit.setOnClickListener(exit_btn -> {
             //exit
             AsyncTask.execute(() -> {

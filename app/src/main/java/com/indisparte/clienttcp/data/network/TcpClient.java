@@ -12,6 +12,10 @@ import com.indisparte.clienttcp.data.model.Pothole;
 import com.indisparte.clienttcp.util.ServerCommand;
 import com.indisparte.clienttcp.util.ServerCommand.CommandType;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -103,51 +107,10 @@ public class TcpClient {
         return null;
     }
 
-    public List<Pothole> getAllPotholes() throws IOException {
-        String result;
-        List<Pothole> resultList = new ArrayList<>();
-
-        write(new ServerCommand(ServerCommand.CommandType.HOLE_LIST));
-        while ((result = readLine(SO_TIMEOUT)) != null) {
-            String[] tokens = result.split(";");
-            resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
-
-        }
-        return resultList;
-    }
-
-    private List<Pothole> getAllPotholes(int from, int to, String name) throws IOException {
-
-        String msg = from + " " + to + " [" + name + "]";
-        ArrayList<Pothole> list = new ArrayList<>();
-
-        write(new ServerCommand(CommandType.HOLE_LIST));
-
-        int counter = Integer.parseInt(readLine(5 * 1000).substring(2).trim());
-
-        String pothole;
-        int i = 0;
-        while (i < counter && (pothole = readLine(5 * 1000)) != null) {
-            Log.d(TAG, "Pothole: " + pothole);
-            //TODO get pothole details
-           /* Scanner potholeScanner = new Scanner(pothole.substring(1));
-
-            long id = potholeScanner.nextLong();
-            long usersCount = potholeScanner.nextLong();
-            int roomColor = potholeScanner.nextInt();
-            String potholeName = stringInside(pothole, "[", "]");
-
-            Room r = new Room(potholeName, id, usersCount, roomColor);
-            list.add(r);
-            Log.d(TAG, "Room Added: " + r);
-            ++i;*/
-        }
-        return list;
-    }
 
     public List<Pothole> getAllPotholesByRange(int range, double latitude, double longitude) throws IOException {
-        String result ;
-        List<Pothole> resultList = new ArrayList<>();
+        String result;
+        List<Pothole> potholes = new ArrayList<>();
 
         write(new ServerCommand(CommandType.HOLE_LIST_BY_RANGE,
                         String.valueOf(latitude),
@@ -157,13 +120,28 @@ public class TcpClient {
         );
 
         if ((result = readLine(SO_TIMEOUT)) != null) {
-            Log.d(TAG, "getAllPotholesByRange: "+result);
-            // TODO: 14/12/2022 Convertire la stringa json in un array di potholes
-            //String[] tokens = result.split(";");
-            //resultList.add(0, new Pothole(Double.valueOf(tokens[0]), Double.valueOf(tokens[1]), Double.valueOf(tokens[2])));
+            Log.d(TAG, "getAllPotholesByRange: " + result);
+            //Converting jsonData string into JSON object
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                //Getting potholes JSON array from the JSON object
+                JSONArray jsonArray = jsonObject.getJSONArray("potholes");
+                //Iterating JSON array
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    //get each value in string format: lat;lng;var
+                    String[] tokens = jsonArray.getString(i).split(";");
+                    potholes.add(new Pothole(
+                            Double.valueOf(tokens[0]), //latitude
+                            Double.valueOf(tokens[1]), //longitude
+                            Double.valueOf(tokens[2])) //variation
+                    );
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, "getAllPotholesByRange: " + e.getMessage());
+            }
         }
 
-        return resultList;
+        return potholes;
     }
 
     public Double getThreshold() throws IOException {
@@ -190,9 +168,4 @@ public class TcpClient {
         write(new ServerCommand(CommandType.SET_USERNAME, username));
     }
 
-    private String stringInside(String s, String left, String right) {
-        Log.d(TAG, "String to split: " + s);
-        if (s == null || s.length() < 3 || !s.contains(left) || !s.contains(right)) return "???";
-        else return s.split(Pattern.quote(left))[1].split(Pattern.quote(right))[0];
-    }
 }

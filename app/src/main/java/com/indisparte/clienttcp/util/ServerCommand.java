@@ -13,7 +13,6 @@ public  class ServerCommand {
     public enum CommandType {
         SET_USERNAME("u"), // usage: u [username]
         NEW_HOLE("h"),//usage: h [lat;lng;variation]
-        HOLE_LIST("l"),
         HOLE_LIST_BY_RANGE("r"),//usage: r [lat;lng;range]
         THRESHOLD("t"),
         DELETE_HOLE("d"),//usage: d[lat;lng]
