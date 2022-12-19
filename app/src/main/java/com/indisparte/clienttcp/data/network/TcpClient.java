@@ -58,6 +58,7 @@ public class TcpClient {
     }
 
     public void closeConnection() throws IOException {
+        write(new ServerCommand(CommandType.EXIT));
         mSocket.close();
     }
 
