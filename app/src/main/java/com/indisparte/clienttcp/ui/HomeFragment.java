@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.indisparte.clienttcp.R;
-import com.indisparte.clienttcp.data.model.Pothole;
-import com.indisparte.clienttcp.data.network.PotholeRepository;
+import com.google.android.material.button.MaterialButton;
+import com.indisparte.clienttcp.data.network.Repository;
 import com.indisparte.clienttcp.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
@@ -30,13 +28,7 @@ public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private FragmentHomeBinding mBinding;
     @Inject
-    protected PotholeRepository mPotholeRepository;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    protected Repository mRepository;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,14 +42,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinding.threshold.setOnClickListener(threshold_btn -> {
+        mBinding.max.setOnClickListener(button -> {
             // get threshold
             AsyncTask.execute(() -> {
                 try {
-                    mPotholeRepository.getThreshold();
-                    Log.d(TAG, "Success, received threshold");
+                    int max = mRepository.getMax();
+                    Log.d(TAG, "Success, received max value: "+max);
                 } catch (IOException e) {
-                    Log.e(TAG, "onClick: Getting threshold error, " + e.getMessage());
+                    Log.e(TAG, "Getting max error, " + e.getMessage());
                 }
 
             });
@@ -67,47 +59,38 @@ public class HomeFragment extends Fragment {
             //exit
             AsyncTask.execute(() -> {
                 try {
-                    mPotholeRepository.closeConnection();
+                    mRepository.closeConnection();
                     Log.d(TAG, "Success, connection closed");
                 } catch (IOException e) {
-                    Log.e(TAG, "onClick: Error closing connection, " + e.getMessage());
+                    Log.e(TAG, "Error closing connection, " + e.getMessage());
                 }
             });
         });
 
-        mBinding.addNewHole.setOnClickListener(addNewHole_btn -> {
-            final Pothole newPothole = buildAPothole();
-            //adding new hole
+        mBinding.addInteger.setOnClickListener(button -> {
+            final int integer = Integer.parseInt(((MaterialButton) button).getText().toString().trim());
             AsyncTask.execute(() -> {
                 try {
-                    mPotholeRepository.addPothole(newPothole);
-                    Log.d(TAG, "Success, new pothole added");
+                    mRepository.addInteger(integer);
+                    Log.d(TAG, "Success, new integer added");
                 } catch (IOException e) {
-                    Log.e(TAG, "onClick: Error adding new pothole, " + e.getMessage());
+                    Log.e(TAG, "Error adding new integer, " + e.getMessage());
                 }
             });
         });
 
-        mBinding.getHolesByRadius.setOnClickListener(getHolesByRadius_btn -> {
-            int radius = mBinding.radius.getProgress();
-            //getting holes by radius
+        mBinding.list.setOnClickListener(button -> {
             AsyncTask.execute(() -> {
                 try {
-                    List<Pothole> potholes =  mPotholeRepository.getPotholesByRange(radius,55.0,11.0);
-                    Log.d(TAG, "Success, get all potholes by range: "+potholes);
+                    List<Integer> integers = mRepository.getAList();
+                    Log.d(TAG, "Success, get all integers: " + integers);
                 } catch (IOException e) {
-                    Log.e(TAG, "onClick: Error getting by range, " + e.getMessage());
+                    Log.e(TAG, "Error getting list, " + e.getMessage());
                 }
             });
         });
     }
 
-    private Pothole buildAPothole() {
-        double latitude = Double.parseDouble(mBinding.latitude.getText().toString().trim());
-        double longitude = Double.parseDouble(mBinding.longitude.getText().toString().trim());
-        double variation = Double.parseDouble(mBinding.variation.getText().toString().trim());
-        return new Pothole("user",latitude, longitude, variation);
-    }
 
     @Override
     public void onDestroyView() {

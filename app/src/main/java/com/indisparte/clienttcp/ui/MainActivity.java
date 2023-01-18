@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.indisparte.clienttcp.data.network.NetworkChangeReceiver;
-import com.indisparte.clienttcp.data.network.PotholeRepository;
+import com.indisparte.clienttcp.data.network.Repository;
 import com.indisparte.clienttcp.databinding.ActivityMainBinding;
-
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -23,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private  NetworkChangeReceiver mNetworkChangeReceiver ;
     @Inject
-    protected PotholeRepository mPotholeRepository;
+    protected Repository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
