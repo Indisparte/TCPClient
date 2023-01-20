@@ -1,5 +1,4 @@
 package com.indisparte.clienttcp.data.network;
-import com.indisparte.clienttcp.data.model.Pothole;
 import java.io.IOException;
 import java.util.List;
 
