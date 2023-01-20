@@ -19,23 +19,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Indisparte/repo_name">
+  <a href="https://github.com/Indisparte/TCPClient">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">project_title</h3>
 
   <p align="center">
-    project_description
+    A starter project for your client app
     <br />
-    <a href="https://github.com/Indisparte/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Indisparte/TCPClient/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Indisparte/repo_name">View Demo</a>
+    <a href="https://github.com/Indisparte/TCPClient">View Demo</a>
     ·
-    <a href="https://github.com/Indisparte/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/Indisparte/TCPClient/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Indisparte/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/Indisparte/TCPCLient/issues">Request Feature</a>
   </p>
 </div>
 
@@ -73,7 +73,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+The project represents a very simple Andorid app capable of interfacing with a remote server. It contains the basic code to implement any app that needs to communicate with a remote server.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,6 +81,9 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
+- Java
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) to remedy data loss when the device is rotated and also for better fragment lifecycle management.
+- [Jetpack Navigation Component](https://developer.android.com/guide/navigation) to simplify the navigation between fragments
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -89,21 +92,23 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-> This is an example of how you may give instructions on setting up your project locally.
 > To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
+- Android Studio
+- Server IP address
+- Server Port address
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/Indisparte/repo_name.git
+   git clone https://github.com/Indisparte/TCPClient.git
    ```
-3. Enter your API in `local.properties`
+3. Enter your Server information in `local.properties`
    ```gradle
-   const API_KEY = 'ENTER YOUR API';
+    SERVER_ADDRESS=xxx.xxx.x.xx
+    SERVER_PORT=xxxx
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -113,9 +118,10 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-> Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The project is implemented as a simple app that sends integers taken from user input and can receive the list of integers or the maximum integer hosted by the server.
+So all the basic operations such as **sending**, **receiving a data** or a **list of data** are represented by the project.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Wiki](https://github.com/Indisparte/TCPClient/wiki)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -124,12 +130,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/Indisparte/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Indisparte/TCPClient/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -174,16 +175,16 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/Indisparte/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Indisparte/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/Indisparte/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/Indisparte/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/Indisparte/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Indisparte/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/Indisparte/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/Indisparte/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/Indisparte/repo_name/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/TCPClient.svg?style=for-the-badge
+[contributors-url]: https://github.com/Indisparte/TCPClient/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Indisparte/TCPClient.svg?style=for-the-badge
+[forks-url]: https://github.com/Indisparte/TCPClient/network/members
+[stars-shield]: https://img.shields.io/github/stars/Indisparte/TCPClient.svg?style=for-the-badge
+[stars-url]: https://github.com/Indisparte/TCPClient/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Indisparte/TCPClient.svg?style=for-the-badge
+[issues-url]: https://github.com/Indisparte/TCPClient/issues
+[license-shield]: https://img.shields.io/github/license/Indisparte/TCPClient.svg?style=for-the-badge
+[license-url]: https://github.com/Indisparte/TCPClient/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/iamantoniodinuzzo
 [product-screenshot]: images/screenshot.png
