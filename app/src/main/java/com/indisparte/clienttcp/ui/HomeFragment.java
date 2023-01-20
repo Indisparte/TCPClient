@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mHomeViewModel.connect();
     }
 
     @Override
@@ -77,6 +78,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        mBinding.exit.performClick();
         mBinding = null;
         super.onDestroyView();
     }
