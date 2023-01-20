@@ -54,53 +54,22 @@ public class HomeFragment extends Fragment {
 
         mBinding.max.setOnClickListener(button -> {
             // get max value
-           /* AsyncTask.execute(() -> {
-                try {
-                    int max = mRepository.getMax();
-                    Log.d(TAG, "Success, received max value: "+max);
-                } catch (IOException e) {
-                    Log.e(TAG, "Getting max error, " + e.getMessage());
-                }
-
-            });*/
             mHomeViewModel.getMaxValue().observe(getViewLifecycleOwner(), maxValue -> Log.d(TAG, "Success, received max value: " + maxValue));
         });
 
         mBinding.exit.setOnClickListener(exit_btn -> {
             //exit
-            /*AsyncTask.execute(() -> {
-                try {
-                    mRepository.closeConnection();
-                    Log.d(TAG, "Success, connection closed");
-                } catch (IOException e) {
-                    Log.e(TAG, "Error closing connection, " + e.getMessage());
-                }
-            });*/
             mHomeViewModel.closeConnection();
         });
 
         mBinding.addInteger.setOnClickListener(button -> {
             final int integer = Integer.parseInt(((MaterialButton) button).getText().toString().trim());
-            /*AsyncTask.execute(() -> {
-                try {
-                    mRepository.addInteger(integer);
-                    Log.d(TAG, "Success, new integer added");
-                } catch (IOException e) {
-                    Log.e(TAG, "Error adding new integer, " + e.getMessage());
-                }
-            });*/
+
             mHomeViewModel.addInteger(integer);
         });
 
         mBinding.list.setOnClickListener(button -> {
-           /* AsyncTask.execute(() -> {
-                try {
-                    List<Integer> integers = mRepository.getAList();
-                    Log.d(TAG, "Success, get all integers: " + integers);
-                } catch (IOException e) {
-                    Log.e(TAG, "Error getting list, " + e.getMessage());
-                }
-            });*/
+
             mHomeViewModel.getIntegerList().observe(getViewLifecycleOwner(), integers -> Log.d(TAG, "Success, get all integers: " + integers));
         });
     }
