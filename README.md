@@ -1,3 +1,4 @@
+<a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -6,96 +7,183 @@
 *** See the bottom of this document for the declaration of the reference variables
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 -->
-
-# CineMates
-![GitHub last commit][last-commit-shield]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-
-<p align="center">
-  <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
-</p>
-
-## ❓ Why this Project.
-
-This app was born for a group university exam project (*me and two other colleagues of mine*) for a bachelor's degree in computer science at the University of Naples "Federico II". 
-
-I later decided to take the app back and twist it from what were the initial guidelines, in order to try my hand at a more substantial project and to become more familiar with Android (*Kotlin*) application development but also software engineering in general.
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-## 🔎 Project Overview
-The application **is still in its early stages** but much more mature than it was when I picked it up. 
 
-CineMates aims to be a customizable app and my intention is to make every feature customizable by the user.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Indisparte/repo_name">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-Here are **some features already developed or in progress**:
-- It is possible to display on the home screen all the **trending movies of the week** as well as the **trending people**, in addition to also displaying the **releasing movies** and the **highest rated movies**. 
+<h3 align="center">project_title</h3>
 
-    The idea was to allow the user to be able to choose which section to view first or perhaps which section was not of interest to them or even add another section. 
-
-    For this requirement I found myself developing a **custom sectionable recyclerview** (*A recyclerview whose items are sections consisting of a title and a recyclerview into which other items are to be inserted*). In this way I have already set the stage for future developments by wanting to bring more heterogeneity within the home and be able to manage each section as a single item.
-
-- It is possible to **search for movies or actors using a single query**, all then distinguishable by the presence of two tabs that divide the search results.
-
-- It is possible to create a **custom filter** by entering gender and a filtering parameter including 'Popularity', 'Release Date' and other values.  
-
-- A **lot of information can be displayed about each movie** including also the collection it is possibly part of, similar movies, and trailers or clips. Thanks to a tab system, it is also possible to learn about the **cast** of that film and take a quick look at the **posters** .
-
-    In this way it is also possible to find out about the actors, clicking on one of the cast members in fact leads to a section dedicated to that specific person, in which we will display even nice details, as well as the movies in which he/she is present.
-
-    Going back to analyze the movie info screen, it is possible to put this movie for now in three lists: favorite, to see and seen. In the future I foresee the possibility of creating custom lists in which, as in all other lists, I foresee maximum customization, from colors to the possibility of choosing a movie randomly from these lists.
-
-- In the profile section little information is given to us, we have the list of our favorite actors or movies and a simple statistic of hours spent watching movies and two counters for movies seen and to be seen.
-
-    I plan in the future to add the ability to indicate favorite genres as well and to analyze favorite and viewed movies according to a pie chart showing which genres we prefer. And maybe other statistics as well.
+  <p align="center">
+    project_description
+    <br />
+    <a href="https://github.com/Indisparte/repo_name"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/Indisparte/repo_name">View Demo</a>
+    ·
+    <a href="https://github.com/Indisparte/repo_name/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Indisparte/repo_name/issues">Request Feature</a>
+  </p>
+</div>
 
 
-## 🗝 API Key.
-Find a file called `local.properties` in the `.gradle` file in the home directory.
 
-- Add `TMDB_API_KEY = "YOUR-API-KEY"` (*The API of The Movie DB obtainable [here](https://www.themoviedb.org/?language=en)*)
-- Add `YT_API_KEY = "YOUR-API-KEY"` (*The API of Youtube obtainable [here](https://console.cloud.google.com/apis/dashboard)*)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-## 👨🏽🎓 What I learned.
-- Retrieve data from the Internet with the **API** of [TheMovieDB](https://developers.themoviedb.org/3/getting-started)
-- Use adapters and custom list layouts to populate list views
-- Embed libraries to simplify the amount of code to write
-- Use the **MVVM** pattern
-- Incorporate **data binding** and **view binding**
-- Use the **Navigation**, **View Pager** , **Live Data** component.
-- Use Dagger Hilt for **dependency injection**.
-- Create unique customize views to reduce boilerplate code
 
-## 📽 Image Resources
 
-**Personalize** | **Movie details** | **Actor details** | **Filters** |
-:-----------------------------:|:---------------------:|:-----------------------------:|:-----------------------------:
-![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/personalization.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/filterable.gif) 
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Libraries
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
-    * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-    * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
-- [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
-- [Retrofit](http://square.github.io/retrofit/)
-- [Glide](https://github.com/bumptech/glide) 
-- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
-- [YouTube Library](https://developers.google.com/youtube/android/player)
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+> This is an example of how you may give instructions on setting up your project locally.
+> To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+### Installation
+
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/Indisparte/repo_name.git
+   ```
+3. Enter your API in `local.properties`
+   ```gradle
+   const API_KEY = 'ENTER YOUR API';
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+> Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
+
+See the [open issues](https://github.com/Indisparte/repo_name/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* []()
+* []()
+* []()
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge
-[contributors-url]: https://github.com/Indisparte/CineMates/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Indisparte/CineMates.svg?style=for-the-badge
-[forks-url]: https://github.com/Indisparte/CineMates/network/members
-[stars-shield]: https://img.shields.io/github/stars/Indisparte/CineMates.svg?style=for-the-badge
-[stars-url]: https://github.com/Indisparte/CineMates/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Indisparte/CineMates.svg?style=for-the-badge
-[issues-url]: https://github.com/Indisparte/CineMates/issues
-[license-shield]: https://img.shields.io/github/license/Indisparte/CineMates.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/Indisparte/repo_name/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Indisparte/repo_name.svg?style=for-the-badge
+[forks-url]: https://github.com/Indisparte/repo_name/network/members
+[stars-shield]: https://img.shields.io/github/stars/Indisparte/repo_name.svg?style=for-the-badge
+[stars-url]: https://github.com/Indisparte/repo_name/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Indisparte/repo_name.svg?style=for-the-badge
+[issues-url]: https://github.com/Indisparte/repo_name/issues
+[license-shield]: https://img.shields.io/github/license/Indisparte/repo_name.svg?style=for-the-badge
 [license-url]: https://github.com/Indisparte/repo_name/blob/master/LICENSE.txt
-[last-commit-shield]: https://img.shields.io/github/last-commit/Indisparte/CineMates.svg?style=for-the-badge
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/iamantoniodinuzzo
+[product-screenshot]: images/screenshot.png
