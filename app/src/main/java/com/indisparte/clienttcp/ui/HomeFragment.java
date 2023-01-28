@@ -30,14 +30,16 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private FragmentHomeBinding mBinding;
-    @Inject
-    protected Repository mRepository;
     private HomeViewModel mHomeViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mHomeViewModel= new ViewModelProvider(
+                requireActivity(),
+                ViewModelProvider.Factory.from(HomeViewModel.initializer)
+        ).get(HomeViewModel.class);
+
         mHomeViewModel.connect();
     }
 

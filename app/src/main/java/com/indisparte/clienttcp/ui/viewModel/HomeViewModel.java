@@ -2,12 +2,15 @@ package com.indisparte.clienttcp.ui.viewModel;
 
 import android.util.Log;
 import android.util.MutableBoolean;
-
+import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
 import com.indisparte.clienttcp.data.network.Repository;
+import com.indisparte.clienttcp.di.component.ClientApplication;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,12 +28,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class HomeViewModel extends ViewModel {
     private static final String TAG = HomeViewModel.class.getSimpleName();
-    @Inject
-    private Repository mRepository;
+    private final Repository mRepository;
 
     private MutableLiveData<Boolean> isConnected;
     private MutableLiveData<List<Integer>> mIntegerList;
     private MutableLiveData<Integer> mMaxValue;
+
+    @Inject
+    public HomeViewModel(Repository repository) {
+        mRepository = repository;
+    }
 
     /**
      * @return
@@ -133,4 +140,14 @@ public class HomeViewModel extends ViewModel {
             isConnected.postValue(mRepository.isConnect());
         }).start();
     }
+
+    public static final ViewModelInitializer<HomeViewModel> initializer = new ViewModelInitializer<>(
+            HomeViewModel.class,
+            creationExtras -> {
+                ClientApplication app = (ClientApplication) creationExtras.get(APPLICATION_KEY);
+                assert app != null;
+
+                return new HomeViewModel(ClientApplication.getMyRepository());
+            }
+    );
 }

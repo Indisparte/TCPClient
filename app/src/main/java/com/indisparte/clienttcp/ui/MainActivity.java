@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
     private  NetworkChangeReceiver mNetworkChangeReceiver ;
-    @Inject
-    protected Repository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

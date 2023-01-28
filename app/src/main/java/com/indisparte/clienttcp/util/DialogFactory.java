@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.indisparte.clienttcp.R;
 import com.indisparte.clienttcp.di.component.ClientApplication;
 
 /**
@@ -32,7 +33,7 @@ public class DialogFactory {
                                                     @Nullable String negative_text_btn,
                                                     @Nullable DialogInterface.OnClickListener positiveButtonClickListener,
                                                     @Nullable DialogInterface.OnClickListener cancelButtonOnClickListener) {
-        final MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(ClientApplication.getContext())
+        final MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(ClientApplication.getContext(),R.style.Theme_ClientTCP)
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(positive_text_btn, positiveButtonClickListener)
