@@ -23,7 +23,6 @@ import java.util.List;
 
 /**
  * Singleton that allows connection with any server.
- *
  */
 public class TcpClient {
 
@@ -90,12 +89,11 @@ public class TcpClient {
      * @throws IOException if there are any errors
      */
     private void write(@NonNull ServerCommand command) throws IOException {
-        synchronized (mStream) {
-            final String completeMsg = command.getFormattedRequest();
-            mStream.write((completeMsg + "\n").getBytes());
-            mStream.flush();
-            Log.d(TAG, "write: " + completeMsg);
-        }
+        final String completeMsg = command.getFormattedRequest();
+        mStream.write((completeMsg + "\n").getBytes());
+        mStream.flush();
+        Log.d(TAG, "write: " + completeMsg);
+
     }
 
 
@@ -129,6 +127,7 @@ public class TcpClient {
 
     /**
      * Retrieves a list of integer from the server
+     *
      * @return A list of integers
      * @throws IOException In case there are any errors
      */
@@ -144,7 +143,7 @@ public class TcpClient {
                 JSONObject jsonObject = new JSONObject(result);
                 //Getting integerList JSON array from the JSON object
                 JSONArray jsonArray = jsonObject.getJSONArray("integers");//json list name
-                Log.d(TAG, "jsonArray: "+jsonArray);
+                Log.d(TAG, "jsonArray: " + jsonArray);
                 //Iterating JSON array
                 for (int i = 0; i < jsonArray.length(); i++) {
                     //get each value in string format
@@ -166,6 +165,7 @@ public class TcpClient {
 
     /**
      * Retrieve the maximum value available
+     *
      * @return The maximum integer, in case it does not retrieve anything will return 0
      * @throws IOException In case there are any errors
      */
@@ -183,11 +183,12 @@ public class TcpClient {
 
     /**
      * Send an integer to the server
+     *
      * @param integer The value to send
      * @throws IOException In case there are any errors
      */
     public void addInteger(int integer) throws IOException {
-        write(new ServerCommand(CommandType.NEW_INT,String.valueOf(integer)));
+        write(new ServerCommand(CommandType.NEW_INT, String.valueOf(integer)));
     }
 
 
