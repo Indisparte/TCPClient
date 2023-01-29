@@ -133,31 +133,32 @@ public class TcpClient {
      * @return A list of integers
      * @throws IOException In case there are any errors
      */
-    public List<Integer> getAList() throws IOException {
+    public List<Integer> getAList() throws IOException, JSONException {
         String result;
         List<Integer> integerList = new ArrayList<>();
 
         write(new ServerCommand(CommandType.LIST));
 
         if ((result = readLine(SO_TIMEOUT)) != null) {
-            Log.d(TAG, "getAList: " + integerList);
             //Converting jsonData string into JSON object
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 //Getting integerList JSON array from the JSON object
-                JSONArray jsonArray = jsonObject.getJSONArray("integerList");
+                JSONArray jsonArray = jsonObject.getJSONArray("integers");//json list name
+                Log.d(TAG, "jsonArray: "+jsonArray);
                 //Iterating JSON array
                 for (int i = 0; i < jsonArray.length(); i++) {
                     //get each value in string format
                     String jsonElem = jsonArray.getString(i);
                     Log.d(TAG, "jsonElem: " + jsonElem);
-                    Integer element = new Gson().fromJson(String.valueOf(jsonElem), Integer.class);
-                    Log.d(TAG, "new elem: " + element);
+                    Integer element = new Gson().fromJson(jsonElem, Integer.class);
+                    Log.d(TAG, "new integer elem: " + element);
                     integerList.add(element);
 
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "getAList: " + e.getMessage());
+                throw e;
             }
         }
 

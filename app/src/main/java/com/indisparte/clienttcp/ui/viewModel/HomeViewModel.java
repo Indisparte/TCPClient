@@ -12,6 +12,8 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import com.indisparte.clienttcp.data.network.Repository;
 import com.indisparte.clienttcp.di.component.ClientApplication;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -75,8 +77,8 @@ public class HomeViewModel extends ViewModel {
             //Do whatever
             try {
                 mIntegerList.postValue(mRepository.getAList());
-            } catch (IOException e) {
-                Log.e(TAG, "getAllIntegerValues: " + e.getMessage());
+            }  catch (JSONException | IOException e) {
+                Log.e(TAG, "getAllIntegerValues: "+e.getMessage());
                 e.printStackTrace();
             }
         }).start();

@@ -1,4 +1,6 @@
 package com.indisparte.clienttcp.data.network;
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class Repository {
         mClient.openConnection();
     }
 
-    public List<Integer> getAList() throws IOException {
+    public List<Integer> getAList() throws IOException, JSONException {
         return mClient.getAList();
     }
 
