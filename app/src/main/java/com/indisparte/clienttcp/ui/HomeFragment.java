@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomeViewModel= new ViewModelProvider(
+        mHomeViewModel = new ViewModelProvider(
                 requireActivity(),
                 ViewModelProvider.Factory.from(HomeViewModel.initializer)
         ).get(HomeViewModel.class);
@@ -66,9 +66,12 @@ public class HomeFragment extends Fragment {
         });
 
         mBinding.addInteger.setOnClickListener(button -> {
-            final int integer = Integer.parseInt(((MaterialButton) button).getText().toString().trim());
+            final String str_int = mBinding.editText.getText().toString().trim();
+            final int integer = Integer.parseInt(str_int);
 
             mHomeViewModel.addInteger(integer);
+            //clear edittext
+            mBinding.editText.setText("");
         });
 
         mBinding.list.setOnClickListener(button -> {
