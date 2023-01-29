@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">ClientTCP</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connection_dialog_retry_btn">Retry</string>
+    <string name="new_integer_hint">New integer</string>
+    <string name="get_the_maximum_integer_btn">Get the maximum integer</string>
+    <string name="add_integer_btn">Add integer</string>
+    <string name="exit_btn">Exit</string>
+    <string name="get_all_integers_btn">Get all integers</string>
+    <string name="internet_connection_error_message">It seems you are not connected on the network</string>
 </resources>

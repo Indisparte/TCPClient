@@ -16,26 +16,34 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.indisparte.clienttcp.R;
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * Check for Internet connection. In case there is no connection,
+ * it provides to show a Dialog with an option to try to connect again
+ *
  */
 public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!Common.isConnectedToInternet(context)) {//Internet is not connected
-            // Do something
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
-            //Show dialog
+
+
+           /* If you need a custom layout for internet dialog
+                View layout_dialog = LayoutInflater.from(context).inflate(R.layout.dialog_check_internet, null);
+                builder.setView(layout_dialog);
+            */
             AlertDialog dialog = builder.create();
-            dialog.show();
-            dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Retry", new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialog.dismiss();
-                    onReceive(context, intent);
-                }
-            });
+            dialog.setButton(
+                    DialogInterface.BUTTON_POSITIVE,
+                    context.getString(R.string.connection_dialog_retry_btn),
+                    (dialogInterface, i) -> {
+                        dialog.dismiss();
+                        onReceive(context, intent);
+                    });
+            dialog.setMessage(context.getString(R.string.internet_connection_error_message));
             dialog.setCancelable(false);
             dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.show();
+
         }
     }
 }
