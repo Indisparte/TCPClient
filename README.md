@@ -8,6 +8,8 @@ A simple Android template that lets you create an **Android TCP Client** project
 
 Just click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-brightgreen)](https://github.com/Indisparte/TCPClient/generate) button to create a new repo starting from this template.
 
+Read the [documentation](https://github.com/Indisparte/TCPClient/wiki)
+
 ## Features 🕹
 
 - 100% Java-only template
