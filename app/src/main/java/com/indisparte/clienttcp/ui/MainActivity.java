@@ -7,24 +7,21 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.indisparte.clienttcp.data.network.NetworkChangeReceiver;
-import com.indisparte.clienttcp.data.network.Repository;
 import com.indisparte.clienttcp.databinding.ActivityMainBinding;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ActivityMainBinding binding;
+    private ActivityMainBinding mBinding;
     private  NetworkChangeReceiver mNetworkChangeReceiver ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
         mNetworkChangeReceiver = new NetworkChangeReceiver();
 
     }

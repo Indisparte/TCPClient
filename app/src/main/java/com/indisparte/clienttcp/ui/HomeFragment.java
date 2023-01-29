@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,21 +33,18 @@ public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
     private FragmentHomeBinding mBinding;
     private HomeViewModel mHomeViewModel;
+    private String mStr_int;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHomeViewModel = new ViewModelProvider(
-                requireActivity(),
-                ViewModelProvider.Factory.from(HomeViewModel.initializer)
-        ).get(HomeViewModel.class);
+        mHomeViewModel = new ViewModelProvider(requireActivity(), ViewModelProvider.Factory.from(HomeViewModel.initializer)).get(HomeViewModel.class);
 
         mHomeViewModel.connect();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
@@ -57,7 +56,7 @@ public class HomeFragment extends Fragment {
 
         mBinding.max.setOnClickListener(button -> {
             // get max value
-            mHomeViewModel.getMaxValue().observe(getViewLifecycleOwner(), maxValue -> Log.d(TAG, "Success, received max value: " + maxValue));
+            mHomeViewModel.getMaxValue().observe(getViewLifecycleOwner(), maxValue -> mBinding.response.setText(String.valueOf(maxValue)));
         });
 
         mBinding.exit.setOnClickListener(exit_btn -> {
@@ -66,17 +65,34 @@ public class HomeFragment extends Fragment {
         });
 
         mBinding.addInteger.setOnClickListener(button -> {
-            final String str_int = mBinding.editText.getText().toString().trim();
-            final int integer = Integer.parseInt(str_int);
+            final int integer = Integer.parseInt(mStr_int);
 
             mHomeViewModel.addInteger(integer);
             //clear edittext
             mBinding.editText.setText("");
         });
 
-        mBinding.list.setOnClickListener(button -> {
+        mBinding.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            mHomeViewModel.getIntegerList().observe(getViewLifecycleOwner(), integers -> Log.d(TAG, "Success, get all integers: " + integers));
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mStr_int = editable.toString().trim();
+                mBinding.addInteger.setEnabled(!mStr_int.isEmpty());// set button clickable only if string is not empty
+            }
+        });
+
+        mBinding.list.setOnClickListener(button -> {
+            //get list of integers
+            mHomeViewModel.getIntegerList().observe(getViewLifecycleOwner(), integers -> mBinding.response.setText(integers.toString()));
         });
     }
 

@@ -6,9 +6,7 @@ import android.net.NetworkInfo;
 
 import androidx.annotation.NonNull;
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
+
 public class Common {
     /**
      *

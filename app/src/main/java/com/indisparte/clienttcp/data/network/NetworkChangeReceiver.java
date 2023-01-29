@@ -19,16 +19,19 @@ import com.indisparte.clienttcp.R;
  * Check for Internet connection. In case there is no connection,
  * it provides to show a Dialog with an option to try to connect again
  *
- * @author Antonio Di Nuzzo (Indisparte)
  */
 public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!Common.isConnectedToInternet(context)) {//Internet is not connected
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
-            //Show dialog
+
+
+           /* If you need a custom layout for internet dialog
+                View layout_dialog = LayoutInflater.from(context).inflate(R.layout.dialog_check_internet, null);
+                builder.setView(layout_dialog);
+            */
             AlertDialog dialog = builder.create();
-            dialog.show();
             dialog.setButton(
                     DialogInterface.BUTTON_POSITIVE,
                     context.getString(R.string.connection_dialog_retry_btn),
@@ -38,6 +41,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                     });
             dialog.setCancelable(false);
             dialog.getWindow().setGravity(Gravity.CENTER);
+            dialog.show();
+
         }
     }
 }

@@ -7,9 +7,6 @@ import com.indisparte.clienttcp.data.network.Repository;
 
 import dagger.hilt.android.HiltAndroidApp;
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
 @HiltAndroidApp
 public class ClientApplication extends Application {
     private static Context sApplicationContext;

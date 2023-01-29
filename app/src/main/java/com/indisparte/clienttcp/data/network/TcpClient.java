@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * Singleton that allows connection with any server.
  *
- * @author Antonio Di Nuzzo (Indisparte)
  */
 public class TcpClient {
 

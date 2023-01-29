@@ -4,9 +4,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
+
 public class Repository {
 
     private static final String TAG = Repository.class.getSimpleName();

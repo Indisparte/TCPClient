@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 /**
  * Helps the user create a well-formatted server command.
  *
- * @author Antonio Di Nuzzo (Indisparte)
  */
 public class ServerCommand {
     /**
