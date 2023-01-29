@@ -39,6 +39,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                         dialog.dismiss();
                         onReceive(context, intent);
                     });
+            dialog.setMessage(context.getString(R.string.internet_connection_error_message));
             dialog.setCancelable(false);
             dialog.getWindow().setGravity(Gravity.CENTER);
             dialog.show();
