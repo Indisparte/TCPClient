@@ -23,13 +23,13 @@ public class Repository {
 
     public boolean isConnect() {
         if (mClient != null)
-            return mClient.isOpen();
+            return mClient.isConnectionOpen();
         else return false;
     }
 
     public void connect() throws IOException {
         mClient = TcpClient.getInstance();
-        mClient.openConnection();
+        mClient.openSocketConnection();
     }
 
     public List<Integer> getAList() throws IOException, JSONException {
