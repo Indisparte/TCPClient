@@ -55,7 +55,7 @@ public class TcpClient {
      *
      * @throws IOException if there are any error
      */
-    public void openConnection() throws IOException {
+    public void openSocketConnection() throws IOException {
         mSocket = new Socket(HOST_NAME, HOST_PORT);
         mSocket.setSoTimeout(SO_TIMEOUT);
         mReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
@@ -68,7 +68,7 @@ public class TcpClient {
      * @throws IOException if there are any error
      */
     public void closeConnection() throws IOException {
-        write(new ServerCommand(CommandType.EXIT));
+        writeOnSocket(new ServerCommand(CommandType.EXIT));
         mSocket.close();
     }
 
@@ -77,7 +77,7 @@ public class TcpClient {
      *
      * @return True if connection is open, false otherwise
      */
-    public boolean isOpen() {
+    public boolean isConnectionOpen() {
         return mSocket != null && !mSocket.isClosed();
     }
 
@@ -88,7 +88,7 @@ public class TcpClient {
      * @param command {@link ServerCommand} that describe this type command
      * @throws IOException if there are any errors
      */
-    private void write(@NonNull ServerCommand command) throws IOException {
+    private void writeOnSocket(@NonNull ServerCommand command) throws IOException {
         final String completeMsg = command.getFormattedRequest();
         mStream.write((completeMsg + "\n").getBytes());
         mStream.flush();
@@ -104,7 +104,7 @@ public class TcpClient {
      * @return The message read from server, can be null
      * @throws IOException In case there are any errors
      */
-    private String readLine(int timeout) throws IOException {
+    private String readSocket(int timeout) throws IOException {
         synchronized (mReader) {
             int prevTimeout = mSocket.getSoTimeout();
             try {
@@ -135,9 +135,9 @@ public class TcpClient {
         String result;
         List<Integer> integerList = new ArrayList<>();
 
-        write(new ServerCommand(CommandType.LIST));
+        writeOnSocket(new ServerCommand(CommandType.LIST));
 
-        if ((result = readLine(SO_TIMEOUT)) != null) {
+        if ((result = readSocket(SO_TIMEOUT)) != null) {
             //Converting jsonData string into JSON object
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -172,9 +172,9 @@ public class TcpClient {
     public int getMax() throws IOException {
         int max = 0;
         String result;
-        write(new ServerCommand(CommandType.MAX));
+        writeOnSocket(new ServerCommand(CommandType.MAX));
 
-        if ((result = readLine(SO_TIMEOUT)) != null) {
+        if ((result = readSocket(SO_TIMEOUT)) != null) {
             max = Integer.parseInt(result);
         }
 
@@ -188,7 +188,7 @@ public class TcpClient {
      * @throws IOException In case there are any errors
      */
     public void addInteger(int integer) throws IOException {
-        write(new ServerCommand(CommandType.NEW_INT, String.valueOf(integer)));
+        writeOnSocket(new ServerCommand(CommandType.NEW_INT, String.valueOf(integer)));
     }
 
 
