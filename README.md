@@ -1,6 +1,6 @@
 
 # TCPClient 🧞‍
-![License](https://img.shields.io/github/license/Indisparte/TCPClient?logo=MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A simple Android template that lets you create an **Android TCP Client** project quickly. 
 
